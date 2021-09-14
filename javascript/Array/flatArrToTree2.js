@@ -44,5 +44,5 @@ let arr = [
   }
   return result;
 }
-
+console.log(arrayToTree(arr));
 
