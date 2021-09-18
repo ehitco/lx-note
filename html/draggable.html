@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>draggable-test</title>
+</head>
+<body>
+  <div id="test" style="background: blue; width: 100px; height: 100px; color: white; padding: 10px;" draggable="true">
+    我可以拖拽，试试吧！
+  </div>
+</body>
+<script>
+  let div = document.getElementById('test');
+div.addEventListener('dragstart', function (e) {
+    this.style.backgroundColor = 'red';
+  }, false);
+  
+  div.addEventListener('dragend', function (e) {
+    this.style.backgroundColor = 'green';
+  }, false);  
+</script>
+
+</html>
