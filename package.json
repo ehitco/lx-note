@@ -1,14 +1,11 @@
 {
-  "name": "aiden's work note",
-  "author": "Aiden",
-  "scripts": {
-    "docs:dev": "vitepress dev docs --host",
-    "docs:build": "vitepress build docs",
-    "docs:serve": "vitepress serve docs --port 8080"
-  },
   "devDependencies": {
-    "vue": "^3.2.45",
-    "vitepress": "^1.0.0-alpha.30",
-    "vitepress-auto-nav-sidebar": "^0.0.5"
+    "vitepress": "1.0.0-rc.32",
+    "vue": "^3.3.13"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   }
 }
