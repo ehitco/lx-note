@@ -1,13 +1,15 @@
 # 类型与值
 
+![](assets/20221208_112942__.png)
+
 ## 原始类型
 
 - `null`空值
-	- 表示一个空对象指针
-	- 定义将来要保存对象值的变量时，建议使用null来初始化
-	- undefined是由null派生而来的，`undefined == null`
+ 	- 表示一个空对象指针
+ 	- 定义将来要保存对象值的变量时，建议使用null来初始化
+ 	- undefined是由null派生而来的，`undefined == null`
 - `undefined`未定义
-	- 一般声明变量的同时进行初始化，这样使用typeof时可以知道给定的变量尚未声明
+ 	- 一般声明变量的同时进行初始化，这样使用typeof时可以知道给定的变量尚未声明
 - `boolean`布尔值
 - `number`数值
 - `string`字符串
@@ -15,33 +17,35 @@
 - `bigint`大数（ES6+新增）
 
 ### 使用`typeof`
+
 - 可能的值
-	- `undefined`（未声明或未定义）、`boolean`、`string`、`number`、`object`（对象或null）、`function`、`symbol`
+ 	- `undefined`（未声明或未定义）、`boolean`、`string`、`number`、`object`（对象或null）、`function`、`symbol`
 - 作用
-	- 检测值类型
-	- 判断变量是否存在
+ 	- 检测值类型
+ 	- 判断变量是否存在
 - `typeof`返回值的类型是`string`
 - 检查`null`
-	- `!a && typeof a === "object"`
-	- 在 javascript 最初的实现中，javascript 中的值是由一个表示类型的标签和实际数据值表示的。对象的类型标签是 0。由于 `null` 代表的是空指针（大多数平台下值为 0x00），因此，null 的类型标签是 0，`typeof null` 也因此返回 "object"
+ 	- `!a && typeof a === "object"`
+ 	- 在 javascript 最初的实现中，javascript 中的值是由一个表示类型的标签和实际数据值表示的。对象的类型标签是 0。由于 `null` 代表的是空指针（大多数平台下值为 0x00），因此，null 的类型标签是 0，`typeof null` 也因此返回 "object"
 - 安全防范机制
-	- 对于没有声明的变量，`typeof`该变量，返回`undefined`，而不会报`ReferenceError`错误。 
+ 	- 对于没有声明的变量，`typeof`该变量，返回`undefined`，而不会报`ReferenceError`错误。
 
 ## 类型转化
 
 ![image](https://cdn.javascriptdelivr.net/gh/Merlin218/image-storage@master/picX/image.7557hldcib9c.webp)
 
 三种情况：
+
 - 转化为布尔值
-	- 除了`undefined`、`null`、`false`、`NaN`、`-0`、`0`、`''`以外，其他都返回`true`，包括所有对象。
+ 	- 除了`undefined`、`null`、`false`、`NaN`、`-0`、`0`、`''`以外，其他都返回`true`，包括所有对象。
 - 转化为数字
 - 转化为字符串
 
 ### 对象转原始类型
 
 - 调用内置的`Symbol.toPrimitive`函数，如果存在的话，调用优先级最高
-	- 该函数接受一个`hint`参数，表示要转换到的原始值的预期类型
-	- 取值是 `number`、`string` 和 `default` 中的任意一个。
+ 	- 该函数接受一个`hint`参数，表示要转换到的原始值的预期类型
+ 	- 取值是 `number`、`string` 和 `default` 中的任意一个。
 - 否则，如果 hint 是 `string` —— 尝试 `obj.toString()` 和 `obj.valueOf()`，无论哪个存在。
 - 否则，如果 hint 是 `number` 或 `default` —— 尝试 `obj.valueOf()` 和 `obj.toString()`，无论哪个存在。
 
@@ -49,15 +53,15 @@
 
 ### 四则运算符
 
- - 加法运算符
-	 - 运算中其中一方为字符串，那么就会把另一方也转换为字符串
-		 - `1 + '1' => '11'`
-	 - 如果一方不是字符串或者数字，那么会将它转换为数字或者字符串
-		 - `true + true => 2`
-		 - `4 + [1,2,3] => '41,2,3'`
-	- `'a' + +'b' => 'aNaN'`：`+'b'`为`NaN`，如果是`+ '1'`，则为数字`1`
+- 加法运算符
+  - 运算中其中一方为字符串，那么就会把另一方也转换为字符串
+   - `1 + '1' => '11'`
+  - 如果一方不是字符串或者数字，那么会将它转换为数字或者字符串
+   - `true + true => 2`
+   - `4 + [1,2,3] => '41,2,3'`
+ 	- `'a' + +'b' => 'aNaN'`：`+'b'`为`NaN`，如果是`+ '1'`，则为数字`1`
 - 其他运算符
-	-  能正常转化为数字的就可以运算
+ 	- 能正常转化为数字的就可以运算
 
 ### 比较运算符
 
@@ -79,20 +83,23 @@ a > -1 // true，通过 valueOf 转换为原始类 型再比较值
 ### == VS ===
 
  对于 `==` 来说，如果对比双方的类型不一样的话，就会进行类型转换
- - 判断类型是否相等，相等则判断大小
- - 类型不相等，先判断是不是比对`null`和`undefined`，是的话返回`true`
- - 判断两者类型是不是`string`或者`number`，是的话将`string`转化为`number`
- - 判断是否有一方是`boolean`，是的话将`boolean`转化为`number`
- - 判断有一方是`NaN`，则相等操作符`==`返回`false`，注意：`NaN == NaN`也为`false`
- -  判断其中一方是否为`object`且另一方为`string`、`number` 或者 `symbol`，是的话就会把 `object 转为原始类型`再进行判断
+
+- 判断类型是否相等，相等则判断大小
+- 类型不相等，先判断是不是比对`null`和`undefined`，是的话返回`true`
+- 判断两者类型是不是`string`或者`number`，是的话将`string`转化为`number`
+- 判断是否有一方是`boolean`，是的话将`boolean`转化为`number`
+- 判断有一方是`NaN`，则相等操作符`==`返回`false`，注意：`NaN == NaN`也为`false`
+- 判断其中一方是否为`object`且另一方为`string`、`number` 或者 `symbol`，是的话就会把 `object 转为原始类型`再进行判断
 
 > 分析`[] == ![]`
+>
 > - 首先，`!`的优先级比`==`的高，所以`![]`会被转化为`false` =>`[] == false`
 > - 接着，当有一边是`boolean`时，将`boolean`转化为`number`=>`[] == 0`
 > - 接着，当有一边是`object`和另一边是`number`时，`object`转化为原始类型，`[]`调用`valueOf`返回自身，不可行，调用`toString`，转化为字符串`''`=>`'' == 0`
 > - 接着，`string`转化为`number`=>`0 == 0`，得到答案`true`
 
  > 分析`{} == !{}`
+ >
  > - 与上述同理
  > - 不同的点在于，如果有一个操作数是NaN，则相等操作符返回 false
  > - `{} == ! {}` =>`{} == false`=>`{} == 0` =>`NaN == 0` =>`false`
@@ -104,6 +111,7 @@ a > -1 // true，通过 valueOf 转换为原始类 型再比较值
 Number类型使用IEEE 754格式表示整数和浮点值（双精度值）。
 
 不同的数值类型有相应的数值字面量类型。
+
 - 八进制：第一个数字必须是0，当数字超出范围时，会去掉前置0，后面的数当成十进制处理。在严格模式下无效。
 - 十六进制：0x开头，后面是0-9和a-f，不区分大小写
 - 由于javascript保存数值的方式，存在-0和+0，在所有情况下是等同的
@@ -117,17 +125,19 @@ Number类型使用IEEE 754格式表示整数和浮点值（双精度值）。
 科学记数法：一个数值（整数或浮点数）后跟一个大写或小写的字母e，再加上一个要乘的10的多少次幂。
 
 浮点值的精确度最高可达17位小数，但在算术计算中远不如整数精确。二进制浮点数的问题：
+
 - `0.1 + 0.2 === 0.3`
 - 实际上0.1和0.2并不精确，得到的实际结果是0.3000...04，所以结果为`false`
 - 正确判断是否相等（在误差范围内则认为相等）
 
 ```javascript
 function numbersCloseEnoughToEqual(n1, n2){
-	return Math.abs( n1 - n2 ) < Number.EPSILON;
+ return Math.abs( n1 - n2 ) < Number.EPSILON;
 }
 ```
 
 32位带符号整数
+
 - `a | 0`可以将变量a中的数值转化为32位带符号的整数
 
 ### 值的范围
@@ -155,44 +165,44 @@ NaN不等于包括NaN在内的任何值。`NaN == NaN // false`
 ### 转化为数值
 
 - `Number()`可用于任何类型
-    - null返回0
-	- undefined返回NaN
-	- 字符串（忽略前导0）
-	    - 八进制或十进制 -> 十进制
-		- 十六进制 -> 相对应的十进制
-		- 有效浮点数 -> 浮点数
-		- 空字符串 -> 0
-		- 其他 -> NaN 
+  - null返回0
+ 	- undefined返回NaN
+ 	- 字符串（忽略前导0）
+     - 八进制或十进制 -> 十进制
+  		- 十六进制 -> 相对应的十进制
+  		- 有效浮点数 -> 浮点数
+  		- 空字符串 -> 0
+  		- 其他 -> NaN
 - `parseInt(str, radix)`
-    - 转化数值优先使用parseInt
-	- 转化原理：从第一个非格字符开始，如果第一个不是数值或+/-号，返回NaN；如果是，继续检测知道末尾或者遇到非数值字符。
-	- 第二个参数是进制数，字符串以`0x`开头为16，`0`开头为8
-	- 例子
-	    - "1234blue" -> 1234
-		- "" -> NaN
-		- "22.5" -> 22
+  - 转化数值优先使用parseInt
+ 	- 转化原理：从第一个非格字符开始，如果第一个不是数值或+/-号，返回NaN；如果是，继续检测知道末尾或者遇到非数值字符。
+ 	- 第二个参数是进制数，字符串以`0x`开头为16，`0`开头为8
+ 	- 例子
+     - "1234blue" -> 1234
+  		- "" -> NaN
+  		- "22.5" -> 22
 - `parseFloat`
-    - 类似parseInt
-	- 始终忽略前导0
-	- 只解析是进制数
-	- 例子
-	    - "0xA" -> 0
-		- "22.34.5" -> 22.34
-		- "3.125e7" -> 31250000
+  - 类似parseInt
+ 	- 始终忽略前导0
+ 	- 只解析是进制数
+ 	- 例子
+     - "0xA" -> 0
+  		- "22.34.5" -> 22.34
+  		- "3.125e7" -> 31250000
 
 ## String类型
 
 - 字符字面量
 - 字符串的特点
-    - 不可变
+  - 不可变
 - 转化为字符串
-    - 对数值使用toString(),可带参数表示底数
+  - 对数值使用toString(),可带参数表示底数
 - 模板字面量
-    - 插入的值会调用toString()
+  - 插入的值会调用toString()
 - 模板字面量标签函数
-    - 接受参数依次是原始字符串 和 对每个表达式求值的结果
+  - 接受参数依次是原始字符串 和 对每个表达式求值的结果
 - 原始字符串
-    - String.raw
+  - String.raw
 
 ## Symbol类型
 
@@ -203,21 +213,20 @@ NaN不等于包括NaN在内的任何值。`NaN == NaN // false`
 - 不能使用new
 - 使用Symbol.for()在全局注册表中创建和复用symbol
 - 符号作为属性
-    - Object.getOwnPropertyNames()返回对象实例的常规属性数组
-	- Object.getOwnPropertySymbols()返回对象实例的符号属性数组
-	- Object.getOwnPropertyDescriptors()会返回同时包含常规和符号属性描述符的对象
-	- Reflect.ownKeys()会返回两种类型的键
+  - Object.getOwnPropertyNames()返回对象实例的常规属性数组
+ 	- Object.getOwnPropertySymbols()返回对象实例的符号属性数组
+ 	- Object.getOwnPropertyDescriptors()会返回同时包含常规和符号属性描述符的对象
+ 	- Reflect.ownKeys()会返回两种类型的键
 - 常用内置符号
-    - Symbol.iterator，由for...of...使用，实现迭代API的函数
-    - Symbol.asynclterator实现异步迭代器API的函数
-    - Symbol.hasInstance，由instanceof使用
-	- Symbol.isConcatSpreadable表示是否应该打平数组
-	    - false或假值会导致整个对象被追加到数组末尾。类数组对象默认情况下会被追加到数组末尾，
-		- true或真值会导致这个类数组对象被打平到数组实例。
-	- Symbol.match，用于正则匹配
-	- Symbol.toStringTag，获取自定义类名，由Object.prototype.toString()使用。
-	- ...
-
+  - Symbol.iterator，由for...of...使用，实现迭代API的函数
+  - Symbol.asynclterator实现异步迭代器API的函数
+  - Symbol.hasInstance，由instanceof使用
+ 	- Symbol.isConcatSpreadable表示是否应该打平数组
+     - false或假值会导致整个对象被追加到数组末尾。类数组对象默认情况下会被追加到数组末尾，
+  		- true或真值会导致这个类数组对象被打平到数组实例。
+ 	- Symbol.match，用于正则匹配
+ 	- Symbol.toStringTag，获取自定义类名，由Object.prototype.toString()使用。
+ 	- ...
 
 ## 对象类型
 
@@ -241,9 +250,9 @@ NaN不等于包括NaN在内的任何值。`NaN == NaN // false`
 
 ```javascript
 class PrimitiveString {
-	static [Symbol.hasInstance](x) {
-		return typeof x === 'string' 
-	}
+ static [Symbol.hasInstance](x) {
+  return typeof x === 'string' 
+ }
 }
 console.log('hello world' instanceof PrimitiveString)
 // 等同于typeof 'hello world' === 'string'
@@ -259,11 +268,11 @@ console.log('hello world' instanceof PrimitiveString)
 
 - 不传参：创建当前日期和时间
 - 传参数：基于其他日期创建，必须传入毫秒表示
-	- Date.parse():接收一个表示日期的字符串参数，转化为毫秒数。
-		- 参数直接传给构造函数，会隐式转化。
-	- Date.UTC():接收多个参数：年、零起月（0-11）、日、时（0-23）、分、秒、毫秒，转化为毫秒。
-		- 参数直接传给构造函数，会隐式转化。**但创建的不是GMT标准时间，是本地时间。**
-	- Date.now():执行时的日期和时间毫秒数，可以用于代码分析中。
+ 	- Date.parse():接收一个表示日期的字符串参数，转化为毫秒数。
+  		- 参数直接传给构造函数，会隐式转化。
+ 	- Date.UTC():接收多个参数：年、零起月（0-11）、日、时（0-23）、分、秒、毫秒，转化为毫秒。
+  		- 参数直接传给构造函数，会隐式转化。**但创建的不是GMT标准时间，是本地时间。**
+ 	- Date.now():执行时的日期和时间毫秒数，可以用于代码分析中。
 
 #### 重写方法
 
@@ -287,6 +296,7 @@ get/getUTC/set/setUTC(`FullYear/Month/Date/Hours/Minutes/Seconds/Milliseconds`)(
 ## 原始值包装类型
 
 对原始值调用相关方法，后台都会执行这三步：
+
 1. 创建对应的对象实例
 2. 调用实例上的特定方法
 3. 销毁实例
@@ -302,18 +312,18 @@ get/getUTC/set/setUTC(`FullYear/Month/Date/Hours/Minutes/Seconds/Milliseconds`)(
 Boolean的实例会重写`valueOf()`方法，返回一个原始值true或者false，`toString()`也会返回字符串的`true`或者`false`
 
 ### Number
-- `Number`方法
-	- `isNAN()`是否是NaN
-	- `toFixed()`格式化数值，用于补位
-	- `toExponential()`格式化数值，返回科学计数法
-	- `toPrecision()`格式化数值，自动返回合适的格式
-	- `isFinite()`是否是有限数
-	- `isInteger()`是否是整数
-	- `isSafeInteger()`是否是安全整数( -`(2^53 - 1)` 至 `2^53 - 1之间`)
-	- `toInteger()`转化为整数(或无穷大)
-	- `parseFloat()`函数解析一个参数（必要时先转换为字符串）并返回一个浮点数。
-	- `parseInt(string, radix)`  解析一个字符串并返回指定基数的十进制整数或`NaN`， `radix` 是2-36之间的整数，表示被解析字符串的基数。
 
+- `Number`方法
+ 	- `isNAN()`是否是NaN
+ 	- `toFixed()`格式化数值，用于补位
+ 	- `toExponential()`格式化数值，返回科学计数法
+ 	- `toPrecision()`格式化数值，自动返回合适的格式
+ 	- `isFinite()`是否是有限数
+ 	- `isInteger()`是否是整数
+ 	- `isSafeInteger()`是否是安全整数( -`(2^53 - 1)` 至 `2^53 - 1之间`)
+ 	- `toInteger()`转化为整数(或无穷大)
+ 	- `parseFloat()`函数解析一个参数（必要时先转换为字符串）并返回一个浮点数。
+ 	- `parseInt(string, radix)`  解析一个字符串并返回指定基数的十进制整数或`NaN`， `radix` 是2-36之间的整数，表示被解析字符串的基数。
 
 ### String
 
@@ -321,6 +331,7 @@ Boolean的实例会重写`valueOf()`方法，返回一个原始值true或者fals
 - 在每行末尾使用反斜杠字符`\`，以指示字符串将在下一行继续
 
 #### 字符相关
+
 - `charAt(index)`从一个字符串中返回指定的字符
 - `charCodeAt(index)`返回 `0` 到 `65535` 之间的整数，表示给定索引处的 UTF-16 代码单元
 - `fromCharCode(x1,x2,x3,...)`通过Unicode编码创建字符，最大支持16位的数字，兼容性好
@@ -328,22 +339,26 @@ Boolean的实例会重写`valueOf()`方法，返回一个原始值true或者fals
 - `codePointAt(index)`方法返回 一个 Unicode 编码点值的非负整数。如果在索引处没找到元素则返回 `undefined`
 
 #### 操作相关
+
 - `concat`将一个或多个字符串与原字符串连接合并，形成一个新的字符串并返回
 - `substring(start,?end)`提取某个字符串的一部分，并返回一个新的字符串，且不会改动原字符串，`负数会被转化为0`
 - `slice(begin,?end)`提取某个字符串的一部分，并返回一个新的字符串，且不会改动原字符串,`支持负数`
 - `substr(start,?num)`截取指定起始位置和长度的字符串
 
 #### 位置相关
+
 - `indexOf(substr,?start)`从 `fromIndex` 处进行搜索，返回第一次出现的指定值的索引，如果未找到该值，则返回 -1
 - `lastIndexOf(substr,?end)`从`fromIndex`处从后向前搜索，返回最后一次出现的索引，如果未找到该值，则返回 -1
 
 #### 包含相关
+
 - `startsWith(substr,?pos)`
 - `endsWith(substr,?pos)`判断当前字符串是否是以另外一个给定的子字符串“结尾”的，根据判断结果返回 `true` 或 `false`
-	- `length`作为 `str` 的长度。默认值为 `str.length`
+ 	- `length`作为 `str` 的长度。默认值为 `str.length`
 - `includes(substr,?start)`判断一个字符串是否包含在另一个字符串中，根据情况返回 true 或 false
 
 #### 正则匹配相关
+
 - `match`返回一个字符串匹配正则表达式的结果
 - `matchAll`返回一个包含所有匹配正则表达式的结果及分组捕获组的数组
 - `replace(regexp|substr, newSubStr|function)`用指定的内容替换掉匹配的结果
@@ -351,6 +366,7 @@ Boolean的实例会重写`valueOf()`方法，返回一个原始值true或者fals
 - `search`对正则表达式进行匹配搜索，返回首次匹配项的索引，否则，返回 `-1`。
 
 #### 其他
+
 - `normalize()`按照Unicode的格式转化为正常字符串
 - `padEnd(targetLength,?padString)`用一个字符串填充当前字符串，从右侧开始，返回填充后的字符串
 - `padStart(targetLength,?padString)`用一个字符串填充当前字符串，从左侧开始，返回填充后的字符串
@@ -373,6 +389,7 @@ Boolean的实例会重写`valueOf()`方法，返回一个原始值true或者fals
 `encodeURI()`和`encodeURIComponent()`用于编码统一资源标识符，以便传给服务器。作用主要是对特别的字符进行编码，使浏览器可以理解。主要使用`encodeURIComponent()`
 
 #### eval()
+
 传入js代码，直接解释执行。
 
 通过`eval()`定义的任何变量和函数都不会提升，这些代码只是被执行的时候才被创建。
@@ -392,15 +409,17 @@ Boolean的实例会重写`valueOf()`方法，返回一个原始值true或者fals
 ### Math
 
 #### 一些对象属性
+
 - Math.E：自然对数的基数e的值
 - Math.PI：π的值
 - ...
 
 #### 一些方法
+
 - min、max比较大小
 - ceil、floor、round、fround
 - random返回0-1范围内的随机数
-	- 编写selectFrom(low, high)函数
+ 	- 编写selectFrom(low, high)函数
 - pow、abs、log、sin、cos等
 
 ## 集合引用类型
@@ -412,12 +431,14 @@ Boolean的实例会重写`valueOf()`方法，返回一个原始值true或者fals
 ### Array
 
 #### 创建方式
+
 - `Array()`
 - 数组字面量`[]`
 - `Array.of()`：接收一组参数转化为数组
 - `Array.from()`：第一个参数接收可迭代的结构，或者有length属性和可索引元素的结构，第二个接收一个映射函数，可以对元素进行处理
 
 #### 数组空位
+
 字面量创建可以使用`,`来创建空位，ES6方法会普遍把空位认为是存在的元素，只不过值为`undefined`
 
 在使用中应该避免使用空位，或者显性的用`undefined`值代替。
@@ -425,9 +446,10 @@ Boolean的实例会重写`valueOf()`方法，返回一个原始值true或者fals
 #### 数组索引
 
 数组length属性不是只读的，修改length属性，可以从数组末尾删除或添加元素。
+
 - `length`属性
-	- 不需要预设大小
-	- 使用`delete`运算符，`length`不会发生改变
+ 	- 不需要预设大小
+ 	- 使用`delete`运算符，`length`不会发生改变
 - 空白字符会被计入`length`的计算中，值为`undefined`，但与显式赋值为`undefined`不同
 - 当key为数字或者能被强制转化为十进制字符串的话，就会被当做数字索引处理，计入`length`计算
 
@@ -451,6 +473,7 @@ a.length; // 14
 ```
 
 #### 检测数组
+
 - `value instanceof Array`
 - `Array.isArray()`：确定一个值是不是数组，不管是从哪个全局上下文创建的。
 
@@ -463,7 +486,7 @@ a.length; // 14
 
 - `valueOf()`返回原数组
 - `toString()`返回每个值的等效字符串拼接成的一个逗号分隔的字符串。
-	- 想要其他分隔符可以使用`join()`
+ 	- 想要其他分隔符可以使用`join()`
 
 #### 栈方法
 
@@ -479,19 +502,21 @@ a.length; // 14
 #### 排序方法
 
 - `sort()`对数组元素进行原地排序并返回此数组
-	- **默认排序顺序**是在将元素转换为字符串，然后比较它们的UTF-16代码单元值序列时构建的。
-	- `compareFn(a,b)`小于0，a在b前面，反之相反。相等这相对位置不变
+ 	- **默认排序顺序**是在将元素转换为字符串，然后比较它们的UTF-16代码单元值序列时构建的。
+ 	- `compareFn(a,b)`小于0，a在b前面，反之相反。相等这相对位置不变
 - `reserve()`将数组中元素的位置颠倒，并返回该数组。该方法会改变原数组
 
 #### 操作方法
+
 - `concat()`合并多数组，返回一个新数组
-	- 底层可以通过`[Symbol.isConcatSpreadable]`控制数组是否可以打平
+ 	- 底层可以通过`[Symbol.isConcatSpreadable]`控制数组是否可以打平
 - `flat()`按指定深度扁平化数组
 - `flatMap(fn)`：`map()`+`flat(1)`，例如将语句数组转化为单词数组
 - `slice()`提取源数组的一部分并返回一个新数组
 - `splice(start,?deleteCount,?add1,?add2,...)`通过**删除或替换现有元素或者原地添加**新的元素来修改数组，以数组形式返回被删除的内容，没有返回空数组，会改变源数组。
 
 #### 搜索和位置方法
+
 - `at`接受一个正数或负数作为索引，返回对应的项，负数则从后面开始数
 - `indexOf(x)`根据值找到第一个索引，没有返回-1
 - `lastIndexOf()`根据值找到最后索引，没有返回-1
@@ -500,6 +525,7 @@ a.length; // 14
 - `findIndex(fn)`根据条件返回第一个目标值索引，找不到返回-1
 
 #### 迭代方法
+
 - `every(fn)`所有元素是否都能通过某个指定函数的测试，返回一个布尔值
 - `some(fn)`测试数组中是不是至少有一个元素通过了被提供的函数测试，返回一个布尔值
 - `filter()`过滤出通过`fn`的所以元素，返回一个新数组
@@ -507,12 +533,13 @@ a.length; // 14
 - `map(fn)`对每个元素调用`fn`，返回新的数组
 
 #### 归并方法
+
 - `reduce(callback(cur,val,idx,arr),initVal)`对数组中的每个元素执行一个函数(升序执行)，将其结果汇总为单个返回值。
-	- `cur`累计值
-	- `val`当前值
-	- `idx`当前索引
-	- `arr`源数组
-	- `initVal`初始值，没有则默认数组的第一个元素
+ 	- `cur`累计值
+ 	- `val`当前值
+ 	- `idx`当前索引
+ 	- `arr`源数组
+ 	- `initVal`初始值，没有则默认数组的第一个元素
 - `reduceRight()`同上，相反方向
 
 ### 定型数组（skip）
@@ -525,15 +552,15 @@ ES6提供的新的集合类型，用于键值存储。
 
 ```js
 const m1 = new Map([
-	["key1", "val1"],
-	["key2", "val2"]
+ ["key1", "val1"],
+ ["key2", "val2"]
 ])
 
 const m2 = new Map({
-	[Symbol.iterator]:function *(){
-		yield ["key1", "value1"];
-		yield ["key2", "value2"];
-	}
+ [Symbol.iterator]:function *(){
+  yield ["key1", "value1"];
+  yield ["key2", "value2"];
+ }
 })
 ```
 
@@ -550,17 +577,20 @@ console.log(m.get(function(){})) // "undefined"
 ```
 
 #### 常用方法
+
 - get、set、has、delete、clear
 - keys、values（以插入顺序生成键和值的迭代器）
 - entries（默认的迭代器）
 
 #### Object和Map怎么选
+
 - 给定固定大小的内存，Map大约比Object多存储50%的键值对
 - 如果涉及大量的插入操作，Map性能更佳
 - 如果涉及大量查找操作，可能Object更好（在把Object当成数组使用时，浏览器引擎会做优化）
 - 如果涉及大量删除操作，选择Map
 
 ### WeakMap
+
 键只能是引用类型。使用方法跟Map类似。
 
 如果某个键，没有指向这个键的引用，当代码执行完后，这个对象键就会被当做垃圾回收。
@@ -570,7 +600,7 @@ console.log(m.get(function(){})) // "undefined"
 #### 如何使用
 
 - 实现私有变量
-	- 私有变量存储在弱引用中，以对象实例为键，私有成员的字典为值。使用闭包把WeakMap包装起来，避免外部访问。
+ 	- 私有变量存储在弱引用中，以对象实例为键，私有成员的字典为值。使用闭包把WeakMap包装起来，避免外部访问。
 - 保存关键元数据，比如存储DOM对象
 
 ```js
@@ -583,18 +613,21 @@ wm.set(loginButton, {disabled: true});
 当结点从DOM树中删除时，垃圾回收程序就会立即释放内存。
 
 #### Set
+
 与Map使用方式类似，像是加强版Map。
 
 Set会维护值插入时的顺序。
 
 #### 常用方法
+
 - add、has、delete、clear
-	- add和delete的操作是幂等的
+ 	- add和delete的操作是幂等的
 - values（keys）、entries
 
 #### 定义集合操作（待完善）
 
 ### WeakSet
+
 #### 如何使用
 
 给对象打标签
