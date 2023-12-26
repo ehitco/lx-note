@@ -22,11 +22,11 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
     },
     {
       text: 'ES6 常用知识点',
-      link: '/front-end/es6/'
+      link: '/front-end/es6/index'
     },
     {
       text: 'TypeScript',
-      link: '/front-end/typescript/base'
+      link: '/front-end/typescript/index'
     },
     {
       text: 'HTML / CSS',
